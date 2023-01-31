@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 
 // TODO: Rename parameter arguments, choose names that match
@@ -38,9 +39,11 @@ class home_Fragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_home, container, false)
         val button = view.findViewById<Button>(R.id.button)
+        val amount = "Ceci est un test"
+        val bundle = bundleOf("Amount" to amount)
+        // testing send with data with bundle
         button.setOnClickListener{
-            findNavController().navigate(R.id.action_home_Fragment_to_onclick_fragment)
-
+            findNavController().navigate(R.id.action_home_Fragment_to_onclick_fragment , bundle)
         }
         return view
     }
