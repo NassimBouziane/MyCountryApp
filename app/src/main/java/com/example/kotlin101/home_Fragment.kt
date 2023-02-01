@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.core.os.bundleOf
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 
 // TODO: Rename parameter arguments, choose names that match
@@ -24,7 +25,9 @@ class home_Fragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
@@ -42,7 +45,14 @@ class home_Fragment : Fragment() {
         val amount = "Ceci est un test"
         val bundle = bundleOf("Amount" to amount)
         // testing send with data with bundle
+
+
+        val mainActivityViewModel = ViewModelProvider(owner = this).get(MainViewModel::class.java)
+
+
         button.setOnClickListener{
+            mainActivityViewModel.test()
+
             findNavController().navigate(R.id.action_home_Fragment_to_onclick_fragment , bundle)
         }
         return view
