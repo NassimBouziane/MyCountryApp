@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.navigation.fragment.findNavController
+import  androidx.fragment.app.viewModels
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -18,9 +19,15 @@ private const val ARG_PARAM2 = "param2"
  * Use the [HomeFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
+
+class MyActivity : AppCompatActivity() {
+    val viewModel: MainViewModel by MainViewModel()
+}
+
+
 class HomeFragment : Fragment() {
 
-    val mViewModel = MainViewModele by activityViewModel<MainViewModel>()
+    val viewModel: MainViewModel by MainViewModel()
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -50,6 +57,7 @@ class HomeFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         // j'comprend pas pq ca marche pas :'(
+        val nomPays = MainViewModel.nomPays
     }
 
     companion object {
