@@ -31,7 +31,8 @@ class MyViewModel: ViewModel() {
         viewModelScope.launch {
             try {
                 val listResult = CountryApi.retrofitService.getCountry()
-                _status.value = "Success: ${listResult.size} Mars photos retrieved"
+                println(listResult)
+                // _status.value = "Success: $listResult Mars photos retrieved"
             } catch (e: Exception) {
                 _status.value = "Failure: ${e.message}"
             }
