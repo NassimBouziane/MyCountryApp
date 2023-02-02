@@ -17,7 +17,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragment) as NavHostFragment
         navController = navHostFragment.navController
-
+     //val mainActivityViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+     //mainActivityViewModel.test()
         setupActionBarWithNavController(navController)
         // pour rajouter le nom dans la barre en haut
 
