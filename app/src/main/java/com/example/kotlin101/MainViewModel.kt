@@ -1,38 +1,16 @@
 package com.example.kotlin101
 
 import androidx.lifecycle.ViewModel
+import com.example.kotlin101.Countries.Countries
 import com.github.kittinunf.fuel.httpGet
 import com.github.kittinunf.result.Result
 import com.github.kittinunf.result.getOrNull
 import com.google.gson.Gson
 import kotlinx.coroutines.flow.MutableStateFlow
+import org.json.JSONObject
 
 
 class MainViewModel : ViewModel()  {
-    data class country (       val name: String? = null,
-                               var region: String? = null,
-                               var tld: String? = null,
-                               var cca2: String? = null,
-                               var ccn3: String? = null,
-                               var cca3: String? = null,
-                               var cioc: String? = null,
-                               var independent: String? = null,
-                               var status:String? = null,
-                               var unMember: String? = null,
-                               var currencies:String? = null,
-                               var idd: String? = null,
-                               var capital:String ? = null,
-                               var altSpellings:String? = null,
-                               var subregion:String? = null,
-                               var languages:String? = null,
-                               var translations:String? = null,
-                               var latlng :String? = null,
-                               var landlocked:String? = null,
-                               var area:String? = null,
-                               var flag:String? = null,
-                               var flags:String? = null,
-                               var demonyms:String? = null,
-                               var fra:String? = null)
 
 
 
@@ -60,10 +38,14 @@ class MainViewModel : ViewModel()  {
                      }
                      is Result.Success -> {
                           val data = result.get()
-                          println(data)
+                          //println(data)
                          val gson = Gson()
-                         val response = gson.fromJson(data, country::class.java)
-                         println(response)
+                         val response = gson.fromJson(data.toString(), Countries::class.java)
+                         //println(response)
+
+                         for(country in response)
+                             println(country.startOfWeek)
+
                          //val responseState = MutableStateFlow(emptyArray<country>())
                          //responseState.value = response
                          //println(responseState.value)
