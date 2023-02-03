@@ -7,9 +7,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.core.os.bundleOf
+import androidx.core.view.isEmpty
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.LayoutManager
+import com.example.kotlin101.Countries.Name
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.coroutines.flow.collect
 import kotlin.concurrent.thread
 
@@ -27,6 +34,8 @@ class home_Fragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+    private lateinit var adapter: RecyclerAdapter
+    private lateinit var recyclerView: RecyclerView
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,6 +66,12 @@ class home_Fragment : Fragment() {
                 Thread.sleep(100)
             println(mainActivityViewModel.responseState.value[0].name)
         }
+         recyclerView = view.findViewById(R.id.reclyclerView)
+        recyclerView.layoutManager = LinearLayoutManager(context)
+        recyclerView.setHasFixedSize(true)
+        var nom: List<String> = listOf("test","test")
+        adapter = RecyclerAdapter(nom)
+        recyclerView.adapter = adapter
 
         button.setOnClickListener{
             findNavController().navigate(R.id.action_home_Fragment_to_onclick_fragment , bundle)
