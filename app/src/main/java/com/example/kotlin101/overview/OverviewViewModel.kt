@@ -6,8 +6,10 @@ import com.example.kotlin101.network.CountryApi
 import kotlinx.coroutines.launch
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-
-
+import com.example.kotlin101.network.Country
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class MyViewModel: ViewModel() {
     // The internal MutableLiveData that stores the status of the most recent request
@@ -24,9 +26,10 @@ class MyViewModel: ViewModel() {
     }
 
     /**
-     * Gets Mars photos information from the Mars API Retrofit service and updates the
+     * Gets Countries  information from the country API Retrofit service and updates the
      * [Countries] [List] [LiveData].
      */
+
     private fun getAllCountry() {
         viewModelScope.launch {
             try {
