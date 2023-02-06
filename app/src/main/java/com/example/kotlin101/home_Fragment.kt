@@ -11,6 +11,8 @@ import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.kotlin101.overview.MyViewModel
+import androidx.fragment.app.viewModels
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -34,7 +36,6 @@ class home_Fragment : Fragment() {
             param2 = it.getString(ARG_PARAM2)
         }
     }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -46,11 +47,9 @@ class home_Fragment : Fragment() {
         val bundle = bundleOf("Amount" to amount)
         // testing send with data with bundle
 
-        val mainActivityViewModel = ViewModelProvider(owner = this).get(MyViewModel::class.java)
-
-
         button.setOnClickListener{
             findNavController().navigate(R.id.action_home_Fragment_to_onclick_fragment , bundle)
+            val mainActivityViewModel = ViewModelProvider(owner = this)[MyViewModel::class.java]
         }
         return view
     }

@@ -34,7 +34,7 @@ interface CountryApiService {
     * HTTP method
     */
     @GET("all")
-    suspend fun getCountry(): String
+    suspend fun getCountry(): List<Country>
 }
 
 /**
