@@ -1,9 +1,12 @@
 package com.example.kotlin101.Countries
 
+import org.jetbrains.annotations.NotNull
+
+
 data class Languages(
-    val afr: String?,
+    val afr: String? = null,
     val amh: String?,
-    val ara: String?,
+    val ara: String? =null,
     val arc: String?,
     val aym: String?,
     val aze: String?,

@@ -55,9 +55,7 @@ class home_Fragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_home, container, false)
-        val button = view.findViewById<Button>(R.id.button)
-        val amount = "Ceci est un test"
-        val bundle = bundleOf("Amount" to amount)
+
         // testing send with data with bundle
         val mainActivityViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
@@ -92,9 +90,6 @@ class home_Fragment : Fragment() {
        }
 
 
-       button.setOnClickListener{
-           findNavController().navigate(R.id.action_home_Fragment_to_onclick_fragment , bundle)
-       }
        return view
    }
 
@@ -117,4 +112,8 @@ class home_Fragment : Fragment() {
                }
            }
    }
+    fun navigate(bundle: Bundle){
+        findNavController().navigate(R.id.action_home_Fragment_to_onclick_fragment , bundle)
+
+    }
 }

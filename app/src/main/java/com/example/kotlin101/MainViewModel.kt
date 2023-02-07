@@ -39,7 +39,7 @@ class MainViewModel : ViewModel()  {
                       val data = result.get()
                       //println(data)
                       val gson = Gson()
-                      val response = gson.fromJson(data.toString(), Countries::class.java)
+                      val response = gson.fromJson(data, Countries::class.java)
                       //println(response)
 
                       //for(country in response)

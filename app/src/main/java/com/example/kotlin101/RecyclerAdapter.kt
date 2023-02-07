@@ -7,10 +7,23 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.os.bundleOf
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kotlin101.Countries.Countries
 import com.example.kotlin101.Countries.Name
 import com.squareup.picasso.Picasso
+import androidx.navigation.fragment.findNavController
+import com.example.kotlin101.Countries.Fra
+import com.github.kittinunf.result.success
+import android.os.Bundle
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
+import androidx.navigation.findNavController
+import com.example.kotlin101.Countries.Languages
+
 
 //private var continents: List<String>, private var image:List<Int>
 class RecyclerAdapter(private var country: Countries) :RecyclerView.Adapter<RecyclerAdapter.ViewHolder>(){
@@ -21,8 +34,23 @@ class RecyclerAdapter(private var country: Countries) :RecyclerView.Adapter<Recy
 
         init {
             itemView.setOnClickListener{
-                println("teststest")
+                val country_selected_name = country[position].name.common
+                val country_selected_contient = country[position].continents.toString()
+                val country_selected_languages = country[position].languages.toString()
+                val country_selected_currencies = country[position].currencies.toString()
+                val country_selected_timezone = country[position].timezones.toString()
+
+
+                val bundle = bundleOf(Pair("Country_name", country_selected_name), Pair("Country_Continent", country_selected_contient)
+                ,Pair("Country_languages", country_selected_languages),Pair("Country_currencies", country_selected_currencies),
+                    Pair("Country_timezone", country_selected_timezone)
+                )
+
+
                 //changez de fragment et mettre toutes les infos en bundle
+
+                val navController: NavController = itemView.findNavController()
+                navController.navigate(R.id.action_home_Fragment_to_onclick_fragment, bundle)
             }
         }
 
@@ -39,10 +67,11 @@ class RecyclerAdapter(private var country: Countries) :RecyclerView.Adapter<Recy
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-
+        // idée : Ajouter une barre de recherche ou on affiche que la liste filtré
+        country.sortBy { it.name.common.toString() }
+        country.sortBy { it.continents.toString() }
         holder.country_name.text = country[position].name.common.toString()
         holder.country_contient.text = country[position].continents.first().toString()
-        //holder.country_image.setImageResource(image[position])
         Picasso.get().load(country[position].flags.png).into(holder.country_image)
     }
 
