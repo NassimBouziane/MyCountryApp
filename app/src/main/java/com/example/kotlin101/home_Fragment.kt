@@ -14,9 +14,11 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.LayoutManager
+import com.example.kotlin101.Countries.Countries
 import com.example.kotlin101.Countries.Name
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.collect
 import kotlin.concurrent.thread
 
@@ -59,43 +61,60 @@ class home_Fragment : Fragment() {
         // testing send with data with bundle
         val mainActivityViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
-        mainActivityViewModel.fetchCountries()
 
-        thread {
-            while (mainActivityViewModel.responseState.value.isEmpty())
+        //runBlocking {  mainActivityViewModel.fetchCountries() }
+
+
+
+
+
+
+
+        GlobalScope.launch(Dispatchers.Main) {
+            val test = withContext(Dispatchers.Default) { mainActivityViewModel.fetchCountries()}
+            println(mainActivityViewModel.responseState.value[0].name)
+/*
+           while (mainActivityViewModel.responseState.value.isEmpty())
                 Thread.sleep(100)
             println(mainActivityViewModel.responseState.value[0].name)
-        }
-         recyclerView = view.findViewById(R.id.reclyclerView)
-        recyclerView.layoutManager = LinearLayoutManager(context)
-        recyclerView.setHasFixedSize(true)
-        var nom: List<String> = listOf("test","test")
-        adapter = RecyclerAdapter(nom)
-        recyclerView.adapter = adapter
+*/
 
-        button.setOnClickListener{
-            findNavController().navigate(R.id.action_home_Fragment_to_onclick_fragment , bundle)
-        }
-        return view
-    }
+           recyclerView = view.findViewById(R.id.reclyclerView)
+           recyclerView.layoutManager = LinearLayoutManager(context)
+           recyclerView.setHasFixedSize(true)
+           var nom: List<String> = listOf("test","test")
+           println(mainActivityViewModel.responseState.value)
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment home_Fragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            home_Fragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
-    }
+           adapter = RecyclerAdapter(mainActivityViewModel.responseState.value)
+           recyclerView.adapter = adapter
+
+
+       }
+
+
+       button.setOnClickListener{
+           findNavController().navigate(R.id.action_home_Fragment_to_onclick_fragment , bundle)
+       }
+       return view
+   }
+
+   companion object {
+       /**
+        * Use this factory method to create a new instance of
+        * this fragment using the provided parameters.
+        *
+        * @param param1 Parameter 1.
+        * @param param2 Parameter 2.
+        * @return A new instance of fragment home_Fragment.
+        */
+       // TODO: Rename and change types and number of parameters
+       @JvmStatic
+       fun newInstance(param1: String, param2: String) =
+           home_Fragment().apply {
+               arguments = Bundle().apply {
+                   putString(ARG_PARAM1, param1)
+                   putString(ARG_PARAM2, param2)
+               }
+           }
+   }
 }

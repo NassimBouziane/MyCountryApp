@@ -6,10 +6,8 @@ import com.github.kittinunf.fuel.httpGet
 import com.github.kittinunf.result.Result
 import com.github.kittinunf.result.getOrNull
 import com.google.gson.Gson
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.launch
 import org.json.JSONObject
 
 
@@ -19,13 +17,12 @@ class MainViewModel : ViewModel()  {
 
 
 
-      fun fetchCountries() {
+      suspend fun fetchCountries() {
           /*val string = Fuel.get("https://restcountries.com/v3.1/all").body!!.toString()
          println(string) */
           //println("test")
-          println("test")
 
-          GlobalScope.launch(Dispatchers.IO) {
+          withContext(Dispatchers.Default) {
               // Do network action in this function
               /*val jsonStr = URL("https://restcountries.com/v3.1/all").readText()
                 println(jsonStr)*/

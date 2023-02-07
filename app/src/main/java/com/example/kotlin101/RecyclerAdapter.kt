@@ -8,9 +8,12 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.kotlin101.Countries.Countries
 import com.example.kotlin101.Countries.Name
+import com.squareup.picasso.Picasso
+
 //private var continents: List<String>, private var image:List<Int>
-class RecyclerAdapter(private var name: List<String>) :RecyclerView.Adapter<RecyclerAdapter.ViewHolder>(){
+class RecyclerAdapter(private var country: Countries) :RecyclerView.Adapter<RecyclerAdapter.ViewHolder>(){
     inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         val country_name: TextView = itemView.findViewById(R.id.country_name)
         val country_contient: TextView = itemView.findViewById(R.id.country_continent)
@@ -19,7 +22,7 @@ class RecyclerAdapter(private var name: List<String>) :RecyclerView.Adapter<Recy
         init {
             itemView.setOnClickListener{
                 println("teststest")
-
+                //changez de fragment et mettre toutes les infos en bundle
             }
         }
 
@@ -32,14 +35,15 @@ class RecyclerAdapter(private var name: List<String>) :RecyclerView.Adapter<Recy
     }
 
     override fun getItemCount(): Int {
-                return name.size
+                return country.size
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        holder.country_name.text = name[position].toString()
-        //holder.country_contient.text = continents[position]
+        holder.country_name.text = country[position].name.common.toString()
+        holder.country_contient.text = country[position].continents.first().toString()
         //holder.country_image.setImageResource(image[position])
+        Picasso.get().load(country[position].flags.png).into(holder.country_image)
     }
 
 }
