@@ -5,10 +5,8 @@ import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
-import retrofit2.Call
-
 private const val BASE_URL =
-    "https://restcountries.com/v3.1/"
+    "https://restcountries.com/v2/"
 
 /**
  * Build the moshi object with Kotlin adapter factory that retrofit will be using.
@@ -38,7 +36,7 @@ interface CountryApiService {
     * HTTP method
     */
     @GET("all")
-    suspend fun getCountry(): List<Country>
+    suspend fun getCountry(): Array<CountryItem>
 }
 
 
