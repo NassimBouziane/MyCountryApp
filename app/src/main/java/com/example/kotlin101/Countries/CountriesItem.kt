@@ -1,5 +1,8 @@
 package com.example.kotlin101.Countries
 
+import com.fasterxml.jackson.annotation.JsonInclude
+
+
 data class CountriesItem(
     val altSpellings: List<String>,
     val area: Double,

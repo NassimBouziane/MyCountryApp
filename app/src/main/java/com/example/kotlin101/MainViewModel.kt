@@ -1,6 +1,7 @@
 package com.example.kotlin101
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.kotlin101.Countries.Countries
 import com.github.kittinunf.fuel.httpGet
 import com.github.kittinunf.result.Result
@@ -9,23 +10,23 @@ import com.google.gson.Gson
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.MutableStateFlow
 import org.json.JSONObject
+import kotlin.concurrent.thread
 
 
 class MainViewModel : ViewModel()  {
     val responseState = MutableStateFlow(Countries())
+init {
+    viewModelScope.launch { fetchCountries() }
 
+}
 
 
 
       suspend fun fetchCountries() {
-          /*val string = Fuel.get("https://restcountries.com/v3.1/all").body!!.toString()
-         println(string) */
-          //println("test")
 
           withContext(Dispatchers.Default) {
               // Do network action in this function
-              /*val jsonStr = URL("https://restcountries.com/v3.1/all").readText()
-                println(jsonStr)*/
+
               val (request, response, result) = "https://restcountries.com/v3.1/all"
                   .httpGet()
                   .responseString()

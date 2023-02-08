@@ -8,21 +8,14 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.os.bundleOf
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
-import androidx.navigation.fragment.findNavController
+import androidx.navigation.NavController
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kotlin101.Countries.Countries
-import com.example.kotlin101.Countries.Name
-import com.squareup.picasso.Picasso
-import androidx.navigation.fragment.findNavController
-import com.example.kotlin101.Countries.Fra
-import com.github.kittinunf.result.success
-import android.os.Bundle
-import androidx.navigation.NavController
-import androidx.navigation.Navigation
-import androidx.navigation.findNavController
 import com.example.kotlin101.Countries.Languages
+import com.squareup.picasso.Picasso
+import kotlin.concurrent.thread
+import kotlin.reflect.full.memberProperties
 
 
 //private var continents: List<String>, private var image:List<Int>
@@ -32,19 +25,24 @@ class RecyclerAdapter(private var country: Countries) :RecyclerView.Adapter<Recy
         val country_contient: TextView = itemView.findViewById(R.id.country_continent)
         val country_image: ImageView = itemView.findViewById(R.id.country_image)
 
+
         init {
+
             itemView.setOnClickListener{
-                val country_selected_name = country[position].name.common
-                val country_selected_contient = country[position].continents.toString()
-                val country_selected_languages = country[position].languages.toString()
-                val country_selected_currencies = country[position].currencies.toString()
-                val country_selected_timezone = country[position].timezones.toString()
+                //val country_selected_name = country[position].name.common
+                //val country_selected_contient = country[position].continents.toString()
+                //val country_selected_languages = country[position].languages.toString()
+                //val country_selected_currencies = country[position].currencies.toString()
+                //val country_selected_timezone = country[position].timezones.toString()
 
 
-                val bundle = bundleOf(Pair("Country_name", country_selected_name), Pair("Country_Continent", country_selected_contient)
-                ,Pair("Country_languages", country_selected_languages),Pair("Country_currencies", country_selected_currencies),
-                    Pair("Country_timezone", country_selected_timezone)
-                )
+
+               // val bundle = bundleOf(Pair("Country_name", country_selected_name), Pair("Country_Continent", country_selected_contient)
+                //,Pair("Country_languages", test.toString()),Pair("Country_currencies", country_selected_currencies),
+                  //  Pair("Country_timezone", country_selected_timezone)
+                //)
+                val index = position
+                val bundle = bundleOf("index" to index )
 
 
                 //changez de fragment et mettre toutes les infos en bundle

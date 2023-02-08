@@ -21,6 +21,7 @@ import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.collect
 import kotlin.concurrent.thread
+import kotlin.jvm.internal.PropertyReference0Impl
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -67,30 +68,26 @@ class home_Fragment : Fragment() {
 
 
 
-
-        GlobalScope.launch(Dispatchers.Main) {
-            val test = withContext(Dispatchers.Default) { mainActivityViewModel.fetchCountries()}
-            println(mainActivityViewModel.responseState.value[0].name)
-/*
-           while (mainActivityViewModel.responseState.value.isEmpty())
-                Thread.sleep(100)
-            println(mainActivityViewModel.responseState.value[0].name)
-*/
-
-           recyclerView = view.findViewById(R.id.reclyclerView)
-           recyclerView.layoutManager = LinearLayoutManager(context)
-           recyclerView.setHasFixedSize(true)
-           var nom: List<String> = listOf("test","test")
-           println(mainActivityViewModel.responseState.value)
-
-           adapter = RecyclerAdapter(mainActivityViewModel.responseState.value)
-           recyclerView.adapter = adapter
+    GlobalScope.launch(Dispatchers.Main) {
+        withContext(Dispatchers.Default) { if(mainActivityViewModel.responseState.value.size == 0){mainActivityViewModel.fetchCountries()} }
+        recyclerView = view.findViewById(R.id.reclyclerView)
+        recyclerView.layoutManager = LinearLayoutManager(context)
+        recyclerView.setHasFixedSize(true)
 
 
-       }
+        adapter = RecyclerAdapter(mainActivityViewModel.responseState.value)
+        recyclerView.adapter = adapter
 
 
-       return view
+
+    }
+
+
+
+
+
+
+        return view
    }
 
    companion object {
@@ -112,8 +109,5 @@ class home_Fragment : Fragment() {
                }
            }
    }
-    fun navigate(bundle: Bundle){
-        findNavController().navigate(R.id.action_home_Fragment_to_onclick_fragment , bundle)
 
-    }
 }

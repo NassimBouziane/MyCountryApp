@@ -2,7 +2,10 @@ package com.example.kotlin101
 
 import android.app.ActionBar
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
+import android.provider.Settings.Global
+
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +13,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
@@ -18,6 +22,12 @@ import com.example.kotlin101.Countries.CountriesItem
 import com.example.kotlin101.Countries.Languages
 import com.google.android.material.navigation.NavigationView
 import com.google.gson.Gson
+import kotlinx.android.synthetic.main.fragment_onclick_fragment.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import org.w3c.dom.Text
 import kotlin.reflect.typeOf
 
 // TODO: Rename parameter arguments, choose names that match
@@ -53,27 +63,50 @@ class onclick_fragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_onclick_fragment, container, false)
-        val button = view.findViewById<Button>(R.id.button2)
+        //val button = view.findViewById<Button>(R.id.button2)
 
-        val test = view.findViewById<TextView>(R.id.test)
-        val gson = Gson()
-        test.text= arguments?.getString("Country_languages")
-        //var test32121: CountriesItem = gson.fromJson(arguments?.getString("Country_languages"), CountriesItem::class.java)
-        //println(test32121)
-        println(arguments?.getString("Country_languages"))
+        val languages = view.findViewById<TextView>(R.id.languages)
+        val name = view.findViewById<TextView>(R.id.name)
+        val continent = view.findViewById<TextView>(R.id.continent)
+        val currency = view.findViewById<TextView>(R.id.currency)
 
 
-        (activity as AppCompatActivity).supportActionBar?.title = arguments?.getString("Country_name")
+        val viewmodel = ViewModelProvider(this).get(MainViewModel::class.java)
+        if (viewmodel?.responseState?.value?.size == 0){
+
+        GlobalScope.launch(Dispatchers.Main) {
+            withContext(Dispatchers.Default) { viewmodel.fetchCountries()}
+            var index :Int = arguments?.get("index") as Int
+            var country = viewmodel.responseState.value
+            country.sortBy { it.name.common.toString() }
+            country.sortBy { it.continents.toString() }
+            data(country[index])
+
+            (activity as AppCompatActivity).supportActionBar?.title = country[index].name.common
+
+        }}
+
+
+
         // Titre dans le Systeme UI qui change par rapport a l'argumetn envoyé dans le bundle
 
 
 
-        button.setOnClickListener{
+        /*button.setOnClickListener{
             findNavController().navigate(R.id.action_onclick_fragment_to_home_Fragment)
 
-        }
+        }*/
 
         return  view
+
+    }
+    fun data(country : CountriesItem){
+        languages.text = country.languages.name
+        name.text = country.name.common
+        continent.text = country.continents[0].toString()
+        currency.text = country.currencies.currency?.name + " " +country.currencies.currency?.symbol
+
+
 
     }
 
