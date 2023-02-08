@@ -15,17 +15,13 @@ class MyViewModel: ViewModel() {
     // The external immutable LiveData for the request status
     val status: LiveData<String> = _status
 
-    /**
-     * Call getAllCountry() on init so we can display status immediately.
-     */
+    // Call getAllCountry() on init so we can display status immediately.
     init {
         getAllCountry()
     }
 
-    /**
-     * Gets Countries  information from the country API Retrofit service and updates the
-     * [Countries] [List] [LiveData].
-     */
+     /* Gets Countries  information from the country API Retrofit service and updates the
+      [Countries] [List] [LiveData].*/
 
     private fun getAllCountry() {
         viewModelScope.launch {

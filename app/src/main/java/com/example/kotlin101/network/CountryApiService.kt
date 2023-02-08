@@ -10,35 +10,26 @@ import retrofit2.http.GET
 private const val BASE_URL =
     "https://restcountries.com/v2/"
 
-/**
- * Build the moshi object with Kotlin adapter factory that retrofit will be using.
- */
+
+// Build the moshi object with Kotlin adapter factory that retrofit will be using.
 private val moshi = Moshi.Builder()
     .add(KotlinJsonAdapterFactory())
     .build()
 
-/**
- * The retrofit object with the moshi converter.
- */
+// The retrofit object with the moshi converter.
 private val retrofit = Retrofit.Builder()
     .addConverterFactory(MoshiConverterFactory.create(moshi))
     .baseUrl(BASE_URL)
     .build()
 
-/**
- * A public interface that exposes the [getCountry] method
- */
+// A public interface that exposes the [getCountry] method
 interface CountryApiService {
-    /**
-    * Returns a [List] of [Countries] and this method can be called from a Coroutine.
-    */
+    // Returns a [List] of [Countries] and this method can be called from a Coroutine.
     @GET("all")
     suspend fun getCountry(): List<Country>
 }
 
-/**
- * A public Api object that exposes the lazy-initialized Retrofit service
- */
+// A public Api object that exposes the lazy-initialized Retrofit service
 object CountryApi {
     val retrofitService : CountryApiService by lazy {
         retrofit.create(CountryApiService::class.java)

@@ -5,13 +5,13 @@ data class Country(
     val name: String,
     val region: String,
     val languages: List<Language>,
+    val currencies: List<Currency>?,
     val timezones: List<String>,
     val flag: String,
-    // val currencies: List<Currency>
 )
-/*data class Currency(
+data class Currency(
     val name: String,
-)*/
+)
 data class Language (
     val name: String,
 )
