@@ -1,13 +1,36 @@
 package com.example.kotlin101
 
 import android.app.ActionBar
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
+import android.provider.Settings.Global
+
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import com.example.kotlin101.Countries.Countries
+import com.example.kotlin101.Countries.CountriesItem
+import com.example.kotlin101.Countries.Languages
+import com.google.android.material.navigation.NavigationView
+import com.google.gson.Gson
+import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.fragment_onclick_fragment.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import org.w3c.dom.Text
+import kotlin.reflect.typeOf
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -25,10 +48,14 @@ class onclick_fragment : Fragment() {
     private var param2: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
+
         super.onCreate(savedInstanceState)
+
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
+
         }
     }
 
@@ -38,13 +65,54 @@ class onclick_fragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_onclick_fragment, container, false)
-        
-        val button = view.findViewById<Button>(R.id.button2)
-        button.setOnClickListener{
+        //val button = view.findViewById<Button>(R.id.button2)
+
+        val languages = view.findViewById<TextView>(R.id.languages)
+        val name = view.findViewById<TextView>(R.id.name)
+        val continent = view.findViewById<TextView>(R.id.continent)
+        val currency = view.findViewById<TextView>(R.id.currency)
+        val image = view.findViewById<ImageView>(R.id.image)
+        val timezone = view.findViewById<TextView>(R.id.timezone)
+
+
+        val viewmodel = ViewModelProvider(this).get(MainViewModel::class.java)
+        if (viewmodel?.responseState?.value?.size == 0){
+
+        GlobalScope.launch(Dispatchers.Main) {
+            withContext(Dispatchers.Default) { viewmodel.fetchCountries()}
+            var index :Int = arguments?.get("index") as Int
+            var country = viewmodel.responseState.value
+            country.sortBy { it.name.common.toString() }
+            country.sortBy { it.continents.toString() }
+            data(country[index])
+
+            (activity as AppCompatActivity).supportActionBar?.title = country[index].name.common
+
+        }}
+
+
+
+        // Titre dans le Systeme UI qui change par rapport a l'argumetn envoyé dans le bundle
+
+
+
+        /*button.setOnClickListener{
             findNavController().navigate(R.id.action_onclick_fragment_to_home_Fragment)
 
-        }
+        }*/
+
         return  view
+
+    }
+    fun data(country : CountriesItem){
+        languages.text = country.languages.name
+        name.text = country.name.common
+        continent.text = country.continents[0]
+        currency.text = country.currencies.currency?.name + " " +country.currencies.currency?.symbol
+        timezone.text = country.timezones.toString()
+        Picasso.get().load(country.flags.png).into(image)
+
+
 
     }
 
