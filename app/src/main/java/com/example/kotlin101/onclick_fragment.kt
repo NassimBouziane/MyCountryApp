@@ -11,6 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -22,6 +23,7 @@ import com.example.kotlin101.Countries.CountriesItem
 import com.example.kotlin101.Countries.Languages
 import com.google.android.material.navigation.NavigationView
 import com.google.gson.Gson
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_onclick_fragment.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -69,6 +71,8 @@ class onclick_fragment : Fragment() {
         val name = view.findViewById<TextView>(R.id.name)
         val continent = view.findViewById<TextView>(R.id.continent)
         val currency = view.findViewById<TextView>(R.id.currency)
+        val image = view.findViewById<ImageView>(R.id.image)
+        val timezone = view.findViewById<TextView>(R.id.timezone)
 
 
         val viewmodel = ViewModelProvider(this).get(MainViewModel::class.java)
@@ -103,8 +107,10 @@ class onclick_fragment : Fragment() {
     fun data(country : CountriesItem){
         languages.text = country.languages.name
         name.text = country.name.common
-        continent.text = country.continents[0].toString()
+        continent.text = country.continents[0]
         currency.text = country.currencies.currency?.name + " " +country.currencies.currency?.symbol
+        timezone.text = country.timezones.toString()
+        Picasso.get().load(country.flags.png).into(image)
 
 
 
