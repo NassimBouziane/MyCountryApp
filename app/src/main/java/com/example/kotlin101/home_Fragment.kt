@@ -11,6 +11,7 @@ import androidx.core.view.isEmpty
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.LayoutManager
@@ -72,7 +73,8 @@ class home_Fragment : Fragment() {
     GlobalScope.launch(Dispatchers.Main) {
         withContext(Dispatchers.Default) { if(mainActivityViewModel.responseState.value.size == 0){mainActivityViewModel.fetchCountries()} }
         recyclerView = view.findViewById(R.id.reclyclerView)
-        recyclerView.layoutManager = LinearLayoutManager(context)
+        recyclerView.layoutManager = GridLayoutManager(context, 2)
+        // recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.setHasFixedSize(true)
 
 
