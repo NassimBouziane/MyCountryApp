@@ -31,6 +31,10 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.w3c.dom.Text
 import kotlin.reflect.typeOf
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.time.Instant
+import java.time.ZoneId
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -105,12 +109,17 @@ class onclick_fragment : Fragment() {
 
     }
     fun data(country : CountriesItem){
-        languages.text = country.languages.name
+        languages.text = "Langue: " + country.languages.name
         name.text = country.name.common
         continent.text = country.continents[0]
-        currency.text = country.currencies.currency?.name + " " +country.currencies.currency?.symbol
-        timezone.text = country.timezones.toString()
+        currency.text = "Devise locale: " + country.currencies.currency?.name + " " +country.currencies.currency?.symbol
+        val currentInstant = Instant.now()
+        val current = LocalDateTime.ofInstant(currentInstant, ZoneId.of(country.timezones[0]))
+        val formatter = DateTimeFormatter.ofPattern("HH:mm")
+        val formatted = current.format(formatter)
+        timezone.text = "Heure Locale: " + formatted
         Picasso.get().load(country.flags.png).into(image)
+
 
 
 
