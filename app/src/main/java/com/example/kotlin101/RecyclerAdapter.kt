@@ -1,17 +1,17 @@
-
-
 package com.example.kotlin101
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.SearchView
 import android.widget.TextView
 import androidx.core.os.bundleOf
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kotlin101.Countries.Countries
+import com.example.kotlin101.Countries.CountriesItem
 import com.example.kotlin101.Countries.Languages
 import com.squareup.picasso.Picasso
 import kotlin.concurrent.thread
@@ -37,9 +37,9 @@ class RecyclerAdapter(private var country: Countries) :RecyclerView.Adapter<Recy
 
 
 
-               // val bundle = bundleOf(Pair("Country_name", country_selected_name), Pair("Country_Continent", country_selected_contient)
+                // val bundle = bundleOf(Pair("Country_name", country_selected_name), Pair("Country_Continent", country_selected_contient)
                 //,Pair("Country_languages", test.toString()),Pair("Country_currencies", country_selected_currencies),
-                  //  Pair("Country_timezone", country_selected_timezone)
+                //  Pair("Country_timezone", country_selected_timezone)
                 //)
                 val index = position
                 val bundle = bundleOf("index" to index )
@@ -61,10 +61,12 @@ class RecyclerAdapter(private var country: Countries) :RecyclerView.Adapter<Recy
     }
 
     override fun getItemCount(): Int {
-                return country.size
+        return country.size
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+
+
         // idée : Ajouter une barre de recherche ou on affiche que la liste filtré
         country.sortBy { it.name.common.toString() }
         country.sortBy { it.continents.toString() }

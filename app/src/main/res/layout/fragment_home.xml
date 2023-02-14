@@ -7,12 +7,33 @@
     tools:context=".home_Fragment">
     <!-- TODO: Update blank fragment layout -->
 
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/searchView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:iconifiedByDefault="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.004"
+        app:queryBackground="@android:color/transparent"
+        app:queryHint="Entrer le nom d'un pays" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/reclyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:itemCount="17"
-        tools:listitem="@layout/recycler_view_item" />
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/searchView"
+        app:layout_constraintVertical_bias="0.042"
+        tools:layoutManager="GridLayoutManager"
+        tools:listitem="@layout/recycler_view_item"
+        tools:spanCount="5" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

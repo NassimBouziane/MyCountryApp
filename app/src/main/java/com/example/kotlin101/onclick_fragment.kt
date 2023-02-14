@@ -84,7 +84,20 @@ class onclick_fragment : Fragment() {
             var country = viewmodel.responseState.value
             country.sortBy { it.name.common.toString() }
             country.sortBy { it.continents.toString() }
-            data(country[index])
+            var query : String = arguments?.getString("query") as String
+            println(query)
+            if (query != ""){
+            val filteredList = Countries()
+            for (i in viewmodel.responseState.value) {
+                if(i.name.common.lowercase().contains(query.lowercase()))
+                    filteredList.add(i)
+            }
+            data(filteredList[index])
+            }
+            else{
+                data(country[index])
+            }
+
 
             (activity as AppCompatActivity).supportActionBar?.title = country[index].name.common
 
