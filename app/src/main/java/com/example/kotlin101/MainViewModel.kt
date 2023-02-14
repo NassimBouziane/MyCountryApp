@@ -1,5 +1,6 @@
 package com.example.kotlin101
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.kotlin101.Countries.Countries
@@ -9,8 +10,6 @@ import com.github.kittinunf.result.getOrNull
 import com.google.gson.Gson
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.MutableStateFlow
-import org.json.JSONObject
-import kotlin.concurrent.thread
 
 
 class MainViewModel : ViewModel()  {
