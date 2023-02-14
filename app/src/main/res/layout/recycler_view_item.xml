@@ -8,9 +8,11 @@
     android:layout_marginBottom="3dp"
     android:layout_margin="10dp"
     app:cardElevation="8dp"
-    android:id="@+id/countries_layout">
+    android:id="@+id/countries_layout"
+    >
 
     <LinearLayout
+        android:background="@drawable/ripple_effect"
         android:layout_width="match_parent"
         android:layout_height="203dp"
         android:orientation="vertical">

@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.AttributeSet
 import android.view.View
+import androidx.annotation.ColorInt
+import androidx.core.content.ContextCompat
 import androidx.core.view.isEmpty
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
