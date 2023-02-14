@@ -1,17 +1,21 @@
 package com.example.kotlin101
 
 import android.os.Bundle
+import android.content.Intent
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.SearchView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.get
 import com.example.kotlin101.Countries.Countries
 import com.example.kotlin101.Countries.CountriesItem
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_onclick_fragment.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -70,22 +74,25 @@ class onclick_fragment : Fragment() {
             var country = viewmodel.responseState.value
             country.sortBy { it.name.common.toString() }
             country.sortBy { it.continents.toString() }
-            var query : String = arguments?.getString("query") as String
-            println(query)
-            if (query != ""){
+
+            if (query != null){
             val filteredList = Countries()
             for (i in viewmodel.responseState.value) {
-                if(i.name.common.lowercase().contains(query.lowercase()))
+                if(i.name.common.lowercase().contains(query!!.lowercase()))
                     filteredList.add(i)
             }
             data(filteredList[index])
+                (activity as AppCompatActivity).supportActionBar?.title = filteredList[index].name.common
+
+                query = null
             }
             else{
                 data(country[index])
+                (activity as AppCompatActivity).supportActionBar?.title = country[index].name.common
+
             }
 
 
-            (activity as AppCompatActivity).supportActionBar?.title = country[index].name.common
 
         }}
 
@@ -115,7 +122,9 @@ class onclick_fragment : Fragment() {
 
     }
 
+
     companion object {
+        var query: String? = null
         /**
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.

@@ -5,7 +5,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.widget.SearchView
 import androidx.core.os.bundleOf
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -16,20 +18,29 @@ import com.squareup.picasso.Picasso
 
 //private var continents: List<String>, private var image:List<Int>
 class RecyclerAdapter(private var country: Countries) :RecyclerView.Adapter<RecyclerAdapter.ViewHolder>(){
+
+
     inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         val country_name: TextView = itemView.findViewById(R.id.country_name)
         val country_contient: TextView = itemView.findViewById(R.id.country_continent)
         val country_image: ImageView = itemView.findViewById(R.id.country_image)
 
 
+
+
         init {
 
+
+
+
             itemView.setOnClickListener{
+
                 //val country_selected_name = country[position].name.common
                 //val country_selected_contient = country[position].continents.toString()
                 //val country_selected_languages = country[position].languages.toString()
                 //val country_selected_currencies = country[position].currencies.toString()
                 //val country_selected_timezone = country[position].timezones.toString()
+
 
 
 
@@ -53,8 +64,10 @@ class RecyclerAdapter(private var country: Countries) :RecyclerView.Adapter<Recy
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
         val v = LayoutInflater.from(parent.context).inflate(R.layout.recycler_view_item,parent,false)
+
         return ViewHolder(v)
     }
+
 
     override fun getItemCount(): Int {
         return country.size

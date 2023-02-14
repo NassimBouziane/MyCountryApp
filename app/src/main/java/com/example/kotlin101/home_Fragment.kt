@@ -1,5 +1,6 @@
 package com.example.kotlin101
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -26,6 +27,7 @@ private lateinit var searchView: SearchView
  * Use the [home_Fragment.newInstance] factory method to
  * create an instance of this fragment.
  */
+
 class home_Fragment : Fragment() {
 
     // TODO: Rename and change types of parameters
@@ -35,7 +37,6 @@ class home_Fragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var searchView: SearchView
     // private lateinit var mList: Countries
-
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
@@ -84,7 +85,6 @@ class home_Fragment : Fragment() {
 
                 override fun onQueryTextChange(query: String?): Boolean {
                     if(query != null) {
-                        println(query)
                         val bundle = bundleOf("query" to query )
                         val filteredList = Countries()
                         for (i in mainActivityViewModel.responseState.value) {
@@ -93,6 +93,8 @@ class home_Fragment : Fragment() {
                         }
                         adapter = RecyclerAdapter(filteredList)
                         recyclerView.adapter = adapter
+                        onclick_fragment.query = query
+
                     }
 
                     return true
@@ -101,7 +103,9 @@ class home_Fragment : Fragment() {
         }
             return view
     }
+
     companion object {
+
         /**
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.
