@@ -29,18 +29,7 @@ class RecyclerAdapter(private var country: Countries) :RecyclerView.Adapter<Recy
         init {
 
             itemView.setOnClickListener{
-                //val country_selected_name = country[position].name.common
-                //val country_selected_contient = country[position].continents.toString()
-                //val country_selected_languages = country[position].languages.toString()
-                //val country_selected_currencies = country[position].currencies.toString()
-                //val country_selected_timezone = country[position].timezones.toString()
 
-
-
-               // val bundle = bundleOf(Pair("Country_name", country_selected_name), Pair("Country_Continent", country_selected_contient)
-                //,Pair("Country_languages", test.toString()),Pair("Country_currencies", country_selected_currencies),
-                  //  Pair("Country_timezone", country_selected_timezone)
-                //)
                 val index = position
                 val bundle = bundleOf("index" to index )
 
@@ -65,7 +54,6 @@ class RecyclerAdapter(private var country: Countries) :RecyclerView.Adapter<Recy
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        // idée : Ajouter une barre de recherche ou on affiche que la liste filtré
         country.sortBy { it.name.common.toString() }
         country.sortBy { it.continents.toString() }
         holder.country_name.text = country[position].name.common.toString()

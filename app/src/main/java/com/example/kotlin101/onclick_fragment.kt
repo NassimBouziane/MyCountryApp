@@ -93,19 +93,11 @@ class onclick_fragment : Fragment() {
             (activity as AppCompatActivity).supportActionBar?.title = country[index].name.common
 
         }}
-
+        return  view
 
 
         // Titre dans le Systeme UI qui change par rapport a l'argumetn envoyé dans le bundle
 
-
-
-        /*button.setOnClickListener{
-            findNavController().navigate(R.id.action_onclick_fragment_to_home_Fragment)
-
-        }*/
-
-        return  view
 
     }
     fun data(country : CountriesItem){
