@@ -9,8 +9,6 @@ import com.github.kittinunf.result.getOrNull
 import com.google.gson.Gson
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.MutableStateFlow
-import org.json.JSONObject
-import kotlin.concurrent.thread
 
 
 class MainViewModel : ViewModel()  {

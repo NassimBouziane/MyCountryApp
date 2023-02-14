@@ -4,18 +4,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.SearchView
 import android.widget.TextView
 import androidx.core.os.bundleOf
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kotlin101.Countries.Countries
-import com.example.kotlin101.Countries.CountriesItem
-import com.example.kotlin101.Countries.Languages
 import com.squareup.picasso.Picasso
-import kotlin.concurrent.thread
-import kotlin.reflect.full.memberProperties
+
 
 
 //private var continents: List<String>, private var image:List<Int>

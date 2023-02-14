@@ -1,36 +1,22 @@
 package com.example.kotlin101
 
-import android.app.ActionBar
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
-import android.provider.Settings.Global
-
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.Navigation
-import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import com.example.kotlin101.Countries.Countries
 import com.example.kotlin101.Countries.CountriesItem
-import com.example.kotlin101.Countries.Languages
-import com.google.android.material.navigation.NavigationView
-import com.google.gson.Gson
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_onclick_fragment.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.w3c.dom.Text
-import kotlin.reflect.typeOf
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
