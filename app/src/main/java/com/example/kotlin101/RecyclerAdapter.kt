@@ -63,7 +63,7 @@ class RecyclerAdapter(private var country: Countries) :RecyclerView.Adapter<Recy
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         country.sortBy { it.name.common.toString() }
         country.sortBy { it.continents.toString() }
-        holder.country_name.text = country[position].name.common.toString()
+        holder.country_name.text = country[position].name.common
         holder.country_contient.text = country[position].continents.first().toString()
         Picasso.get().load(country[position].flags.png).into(holder.country_image)
     }

@@ -1,5 +1,6 @@
 package com.example.kotlin101
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.content.Intent
 import androidx.fragment.app.Fragment
@@ -7,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.ScrollView
 import android.widget.SearchView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -69,6 +71,7 @@ class onclick_fragment : Fragment() {
         val currency = view.findViewById<TextView>(R.id.currency)
         val image = view.findViewById<ImageView>(R.id.image)
         val timezone = view.findViewById<TextView>(R.id.timezone)
+        val scrollview = view.findViewById<ScrollView>(R.id.scrollview)
 
 
         val viewmodel = ViewModelProvider(this).get(MainViewModel::class.java)
@@ -108,16 +111,45 @@ class onclick_fragment : Fragment() {
 
 
     }
+    @SuppressLint("SetTextI18n")
     fun data(country : CountriesItem){
-        languages.text = "Langue: " + country.languages.name
+
+        if(country.languages != null){
+        languages.text = "Langue: " + country.languages.name}
+        else{
+            languages.text = "Langue: non spécifiée"
+        }
         name.text = country.name.common
         continent.text = country.continents[0]
-        currency.text = "Devise locale: " + country.currencies.currency?.name + " " +country.currencies.currency?.symbol
+        if(country.currencies != null){
+            currency.text = "Devise locale: " + country.currencies.currency?.name + " " +country.currencies.currency?.symbol
+
+        }
+        else{
+            currency.text = "Devise non spécifiée"
+        }
         val currentInstant = Instant.now()
-        val current = LocalDateTime.ofInstant(currentInstant, ZoneId.of(country.timezones[0]))
-        val formatter = DateTimeFormatter.ofPattern("HH:mm")
-        val formatted = current.format(formatter)
-        timezone.text = "Heure Locale: " + formatted
+        if(country.timezones.size > 1){
+            for(timezones in country.timezones){
+                val current = LocalDateTime.ofInstant(currentInstant, ZoneId.of(timezones))
+                val formatter = DateTimeFormatter.ofPattern("HH:mm")
+                val formatted = current.format(formatter)
+                timezone.append("$timezones : $formatted \n")
+
+            }
+
+
+        }
+        else {
+            val current = LocalDateTime.ofInstant(currentInstant, ZoneId.of(country.timezones[0]))
+            val formatter = DateTimeFormatter.ofPattern("HH:mm")
+            val formatted = current.format(formatter)
+
+            timezone.text = "Heure Locale: " + formatted
+        }
+        scrollview.post{
+            scrollview.fullScroll(View.FOCUS_DOWN)
+        }
         Picasso.get().load(country.flags.png).into(image)
 
 

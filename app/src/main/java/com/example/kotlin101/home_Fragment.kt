@@ -61,7 +61,6 @@ class home_Fragment : Fragment() {
         val mainActivityViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
 
-        //runBlocking {  mainActivityViewModel.fetchCountries() }
 
 
 
@@ -87,7 +86,6 @@ class home_Fragment : Fragment() {
 
                 override fun onQueryTextChange(query: String?): Boolean {
                     if(query != null) {
-                        val bundle = bundleOf("query" to query )
                         val filteredList = Countries()
                         for (i in mainActivityViewModel.responseState.value) {
                             if(i.name.common.lowercase().contains(query.lowercase()))

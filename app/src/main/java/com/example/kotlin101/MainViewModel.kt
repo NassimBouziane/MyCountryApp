@@ -37,16 +37,11 @@ init {
                   }
                   is Result.Success -> {
                       val data = result.get()
-                      //println(data)
                       val gson = Gson()
                       val response = gson.fromJson(data, Countries::class.java)
-                      //println(response)
-
-                      //for(country in response)
-                      //println(country.demonyms)
 
                       responseState.value = response
-                      //println(responseState.value)
+
 
 
                   }
