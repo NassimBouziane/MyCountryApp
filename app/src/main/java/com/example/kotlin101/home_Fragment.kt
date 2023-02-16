@@ -57,7 +57,6 @@ class home_Fragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_home, container, false)
 
-        // testing send with data with bundle
         val mainActivityViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
 
