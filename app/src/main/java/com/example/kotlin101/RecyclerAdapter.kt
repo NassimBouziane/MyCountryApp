@@ -1,8 +1,11 @@
 package com.example.kotlin101
 
+import android.os.ParcelFileDescriptor.OnCloseListener
+import android.preference.PreferenceManager.OnActivityStopListener
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewTreeObserver
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.SearchView
@@ -18,6 +21,7 @@ import com.squareup.picasso.Picasso
 
 //private var continents: List<String>, private var image:List<Int>
 class RecyclerAdapter(private var country: Countries) :RecyclerView.Adapter<RecyclerAdapter.ViewHolder>(){
+
 
 
     inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
@@ -48,13 +52,13 @@ class RecyclerAdapter(private var country: Countries) :RecyclerView.Adapter<Recy
 
     }
 
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
         val v = LayoutInflater.from(parent.context).inflate(R.layout.recycler_view_item,parent,false)
 
         return ViewHolder(v)
     }
-
 
     override fun getItemCount(): Int {
         return country.size

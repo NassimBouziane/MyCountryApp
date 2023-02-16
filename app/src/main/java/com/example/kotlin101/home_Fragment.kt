@@ -1,20 +1,21 @@
 package com.example.kotlin101
 
-import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import androidx.core.content.ContextCompat
-import androidx.core.os.bundleOf
+import androidx.appcompat.widget.SearchView
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewmodel.viewModelFactory
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kotlin101.Countries.Countries
-import kotlinx.coroutines.*
-import androidx.appcompat.widget.SearchView
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -22,6 +23,7 @@ import androidx.appcompat.widget.SearchView
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 private lateinit var searchView: SearchView
+
 
 
 /**
@@ -39,6 +41,7 @@ class home_Fragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var searchView: SearchView
     // private lateinit var mList: Countries
+     var state: Parcelable? = null;
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
@@ -47,6 +50,8 @@ class home_Fragment : Fragment() {
             param2 = it.getString(ARG_PARAM2)
         }
     }
+
+
 
     override fun onCreateView(
 
@@ -58,6 +63,10 @@ class home_Fragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_home, container, false)
 
         val mainActivityViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+        recyclerView = view.findViewById(R.id.reclyclerView)
+
+
+
 
 
 
@@ -68,7 +77,6 @@ class home_Fragment : Fragment() {
 
         GlobalScope.launch(Dispatchers.Main) {
             withContext(Dispatchers.Default) { if(mainActivityViewModel.responseState.value.size == 0){mainActivityViewModel.fetchCountries()} }
-            recyclerView = view.findViewById(R.id.reclyclerView)
             recyclerView.layoutManager = GridLayoutManager(context, 2)
             // recyclerView.layoutManager = LinearLayoutManager(context)
             recyclerView.setHasFixedSize(true)
@@ -76,6 +84,10 @@ class home_Fragment : Fragment() {
 
             adapter = RecyclerAdapter(mainActivityViewModel.responseState.value)
             recyclerView.adapter = adapter
+                recyclerView.post {
+                    recyclerView.layoutManager?.onRestoreInstanceState(state)
+                }
+
 
             searchView = view.findViewById(R.id.searchView)
             searchView?.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
@@ -102,6 +114,15 @@ class home_Fragment : Fragment() {
         }
             return view
     }
+    override fun onPause() {
+        super.onPause()
+        val recyclerViewState = recyclerView.layoutManager!!.onSaveInstanceState()!!
+        state = recyclerViewState
+
+
+    }
+
+
 
     companion object {
 
