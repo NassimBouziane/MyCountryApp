@@ -10,7 +10,7 @@ import android.widget.Button
 import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.example.kotlin101.overview.MyViewModel
+import com.example.kotlin101.MainViewModel
 import androidx.fragment.app.viewModels
 
 
@@ -49,7 +49,7 @@ class home_Fragment : Fragment() {
 
         button.setOnClickListener{
             findNavController().navigate(R.id.action_home_Fragment_to_onclick_fragment , bundle)
-            val mainActivityViewModel = ViewModelProvider(owner = this)[MyViewModel::class.java]
+            val mainActivityViewModel = ViewModelProvider(owner = this)[MainViewModel::class.java]
         }
         return view
     }

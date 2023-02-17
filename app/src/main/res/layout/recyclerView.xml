@@ -1,0 +1,51 @@
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="5dp"
+    android:layout_marginBottom="3dp"
+    android:layout_margin="10dp"
+    app:cardElevation="8dp"
+    android:id="@+id/countries_layout">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_marginStart="12dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/image"
+            android:scaleType="fitCenter"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            tools:src="@tools:sample/avatars"/>
+
+        <TextView
+            android:id="@+id/country_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginBottom="8dp"
+            android:textColor="@android:color/black"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toTopOf="@+id/country_continent"
+            app:layout_constraintStart_toEndOf="@+id/country_image"
+            app:layout_constraintTop_toTopOf="@+id/country_image"
+            tools:text="@tools:sample/full_names" />
+
+        <TextView
+            android:id="@+id/country_continent"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="44dp"
+            app:layout_constraintBottom_toBottomOf="@+id/country_image"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/country_image"
+            tools:text="@tools:sample/lorem[4:4]"
+            />
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
